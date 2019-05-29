@@ -40,16 +40,9 @@ class RoutesPdf{
             res.redirect('/api/');
         });
 
-        routes.get('/', ((req,res) =>{
-            res.render('login');
-        }))
-
-        routes.get('/index', this.isLoggedIn, (req,res) =>{
-            res.render('index', { title: 'Express' });
-        });
         
-        routes.get('/busca', this.isLoggedIn, (req,res) =>{
-            this.AdController.findByQuery(req.query.b).then((result) =>{
+        routes.get('/busca', (req,res) =>{
+            this.AdController.find(req.query.b).then((result) =>{
                 res.status(200).json({ 'retorno': result,
                 'string': req.query.b,
                 'user': req.user});
@@ -58,22 +51,18 @@ class RoutesPdf{
                 res.status(500).json(err);
             })
         });
-        
-        routes.get('/inserir', this.isLoggedIn, (req,res) =>{
-            res.render('inserir'); 
-        });
 
-        routes.get('/getPdf/:id', (req,res) =>{
-            this.AdController.getPdf(req.params.id).then((pdfUrl) =>{
-                res.status(200).json(pdfUrl)
+        routes.get('/view/:id', (req,res) =>{
+            this.AdController.getAd(req.params.id).then((Ad) =>{
+                res.status(200).json(Ad)
             }).catch((err) =>{
                 console.log('erro3' , err);
                 res.status(500).json(err);
-            })
-        })
+            });
+        });
 
-        routes.post('/inserir',this.isLoggedIn, (req,res) =>{
-            this.AdController.inserirPost(req,this.Balancer).then((succ) =>{
+        routes.post('/inserir', (req,res) =>{
+            this.AdController.insertAd(req,this.Balancer).then((succ) =>{
                 res.render('index', { title: 'Express' });           
             }).catch((err)=>{
                 res.json(err);
@@ -81,9 +70,9 @@ class RoutesPdf{
         });
 
 
-        routes.get('/delete/:id',this.isLoggedIn,(req,res) =>{
-            this.AdController.deletarPdf(req.params.id).then((succ) =>{
-                res.redirect('/index')           
+        routes.get('/delete/:id',(req,res) =>{
+            this.AdController.deleteAd(req.params.id).then((succ) =>{
+                res.status(200).json({status: "delet"})           
             }).catch((err) =>{
                 res.json(err);
             })
