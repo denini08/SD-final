@@ -1,27 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const ProductSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    contato: {
-        type: String,
-        required: true
-    },
-    createdBy:{
-        name: String,
-        id  : String,
-        email: String
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
+const AdSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  contact: {
+    type: String,
+    required: true
+  },
+  createdBy: {
+    name: String,
+    id: String,
+    email: String
+  },
+  comments: [
+    {
+      name: String,
+      comment: String
     }
+  ]
 });
 
-mongoose.model('Ad', ProductSchema);
+mongoose.model("Ad", AdSchema);
+module.exports = AdSchema;

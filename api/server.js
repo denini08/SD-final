@@ -1,40 +1,25 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const requireDir = require('require-dir');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-var path = require('path');
-var logger = require('morgan');
-const ip = require('ip')
-var fileupload = require("express-fileupload");
-var cookieParser = require('cookie-parser');
-var session      = require('express-session');
-var passport     = require('passport');
-mongoose.connect("mongodb://localhost:27017/api", { useNewUrlParser: true });
+const express = require("express");
+const mongoose = require("mongoose");
+const requireDir = require("require-dir");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+var logger = require("morgan");
+const ip = require("ip");
+mongoose.connect("mongodb://localhost:27016/api?replicaSet=rs0", {
+  useNewUrlParser: true
+});
 
 const app = express();
-app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileupload());
-require('./src/models/User')
-require('./auth/passport')(passport); // pass passport for configuration
+app.use(logger("dev"));
 
-
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors());
-app.use(cookieParser());
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
 
+const api = require("./src/routes_api");
 
-requireDir('./src/models');
-const api = require('./src/routes_api');
+app.use("/api", new api().routes);
 
-//app.use('/api', new api(passport).routes);
-app.use('/api', new api().routes);
-
-app.listen(3001, () => {
-    console.log('Server started on: ' + ip.address()+ ' port: 3001');
+app.listen(3002, () => {
+  console.log("Server started on: " + ip.address() + " port: 3002");
 });
