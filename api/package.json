@@ -25,6 +25,7 @@
     "mongoose": "^5.4.16",
     "mongoose-paginate": "^5.0.3",
     "morgan": "^1.9.1",
+    "node-cron": "^2.0.3",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
     "request": "^2.88.0",
