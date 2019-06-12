@@ -73,6 +73,25 @@ class AdController {
         });
     });
   }
+
+  addComment(id, comment) {
+    return new Promise((resolve, reject) => {
+      Ad.findOneAndUpdate(
+        { _id: id },
+        {
+          $push: {
+            comments: comment
+          }
+        }
+      )
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 }
 
 module.exports = AdController;

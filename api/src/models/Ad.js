@@ -20,10 +20,13 @@ const AdSchema = new mongoose.Schema({
   },
   comments: [
     {
-      name: String,
+      autor: String,
       comment: String
     }
-  ]
+  ],
+  price: {
+    type: String
+  }
 });
 
 mongoose.model("Ad", AdSchema);

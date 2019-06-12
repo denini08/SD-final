@@ -7,7 +7,7 @@ var logger = require("morgan");
 const ip = require("ip");
 const request = require("request");
 
-const DNS = "http://192.168.0.105:3030/keepAlive";
+const DNS = "http://localhost:3030/keepAlive";
 mongoose.connect("mongodb://localhost:27016/api?replicaSet=rs0", {
   useNewUrlParser: true
 });

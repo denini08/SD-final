@@ -14,19 +14,17 @@ class RoutesApi {
     routes.get("/findAll", (req, res) => {
       this.AdController.listAds()
         .then(Ads => {
-          res.status(201).json(Ads);
+          res.status(200).json(Ads);
         })
         .catch(err => {
           res.json(err);
         });
     });
 
-    routes.get("/find", (req, res) => {
-      this.AdController.find(req.query.b)
+    routes.get("/find/:b", (req, res) => {
+      this.AdController.find(req.params.b)
         .then(result => {
-          res
-            .status(200)
-            .json({ retorno: result, string: req.query.b, user: req.user });
+          res.status(200).json({ retorno: result, string: req.params.b });
         })
         .catch(err => {
           console.log("erro1213123", err);
@@ -59,6 +57,16 @@ class RoutesApi {
       this.AdController.deleteAd(req.params.id)
         .then(succ => {
           res.status(200).json({ status: "deleted" });
+        })
+        .catch(err => {
+          res.json(err);
+        });
+    });
+
+    routes.post("/comment/:id", (req, res) => {
+      this.AdController.addComment(req.params.id, req.body.comment)
+        .then(succ => {
+          res.status(201).json({ succ });
         })
         .catch(err => {
           res.json(err);
