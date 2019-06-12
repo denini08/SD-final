@@ -18,20 +18,18 @@ class DatabaseSeeder extends Seeder
         $anuncio = Ad::create([
             'title' => 'notebook Acer',
             'description' => 'notebook em ótimo estado',
-            'contact' => '999-843-797'
+            'contact' => '999-843-797',
+            'CreateBy' => [
+                'name' => 'Thomás',
+                'id_Google' => '123456',
+                'email' => 't@upe.br',
+            ],
         ]);
-
-        $dono = new CreatedBy();
-        $dono->name = "Thomás Tabosa";
-        $dono->email = "t@upe.br";
-        $anuncio->createdBy()->save($dono);
 
         $anuncio->comments()->create([
             'autor' => 'denini',
             'comment' => 'qual o menor preço?',
         ]);
-
-        $anuncio->save();
 
     }
 }

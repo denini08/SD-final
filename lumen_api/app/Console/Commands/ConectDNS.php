@@ -9,7 +9,7 @@
 
 namespace App\Console\Commands;
 
-use Exception;
+use \GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use App\Http\Controllers\AuthorController;
 
@@ -26,7 +26,7 @@ class ConectDNS extends Command
      *
      * @var string
      */
-    protected $signature = "conect:dns {host=localhost} {port=3000}";
+    protected $signature = "conect:dns";
 
     /**
      * The console command description.
@@ -43,7 +43,17 @@ class ConectDNS extends Command
      */
     public function handle()
     {
-        //$host    = "127.0.0.1";
+        $address = env('DNS_ADDRESS', 'localhost:8000');
+        $client = new Client();
+        $request = $client->get($address);
+        $response = $request->getBody()->getContents();
+        echo "<pre>";
+        print_r($response);
+        exit;
+    }
+
+    public function old() {
+         //$host    = "127.0.0.1";
         //$port    = 3000;
         $host = $this->argument('host');
         $port = $this->argument('port');

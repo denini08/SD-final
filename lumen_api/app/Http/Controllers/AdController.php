@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 class AdController extends Controller
 {
 
+    /**
+     * Exibe todos os anuncios no banco
+     */
     public function records()
     {
         return response()->json(Ad::all());
 
     }
 
+    /**
+     * Pesquisa no banco os anuncios que possuem o texto que foi mencionado,
+     * no título ou na descrição
+     */
     public function find($filter)
     {
 
@@ -27,6 +34,9 @@ class AdController extends Controller
 
     }
 
+    /**
+     * Cria o anúncio, infomando o dono
+     */
     public function create(Request $request)
     {
 
@@ -35,6 +45,9 @@ class AdController extends Controller
         return response()->json($anuncio, 201);
     }
 
+    /**
+     * Atualiza o anúncio
+     */
     public function update($id, Request $request)
     {
         $anuncio = Ad::findOrFail($id);
@@ -43,9 +56,27 @@ class AdController extends Controller
         return response()->json($anuncio, 200);
     }
 
+    /**
+     * Remove o anúncio
+     */
     public function delete($id)
     {
         Ad::findOrFail($id)->delete();
         return response('Deleted Successfully', 200);
+    }
+
+    /**
+     * Insere um comentário no anúncio
+     */
+    public function addComment($id, Request $request){
+
+        $anuncio = Ad::findOrFail($id);
+
+        $anuncio->comments()->create($request->all());
+
+        //$anuncio->save();
+
+        return response()->json($anuncio, 201);
+
     }
 }

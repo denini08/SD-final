@@ -12,9 +12,14 @@ class Ad extends \Jenssegers\Mongodb\Eloquent\Model
         'title', 'description', 'contact', 'createdBy'
     ];
 
-    public function createdBy()
+    public function setUpdatedAt($value)
     {
-        return $this->embedsOne('App\CreatedBy');
+      return NULL;
+    }
+
+    public function setCreatedAt($value)
+    {
+      return NULL;
     }
 
     public function comments()
