@@ -19,15 +19,17 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     /*Ads*/
 
-    $router->get('ads',  ['uses' => 'AdController@records']);
+    $router->get('findAll',  ['uses' => 'AdController@records']);
 
-    $router->get('ads/{filter}', ['uses' => 'AdController@find']);
+    $router->get('find/{filter}', ['uses' => 'AdController@find']);
 
-    $router->post('ads', ['uses' => 'AdController@create']);
+    $router->get('view/{id}', ['uses' => 'AdController@findId']);
 
-    $router->delete('ads/{id}', ['uses' => 'AdController@delete']);
+    $router->post('insert', ['uses' => 'AdController@create']);
+
+    $router->delete('delete/{id}', ['uses' => 'AdController@delete']);
 
     $router->put('ads/{id}', ['uses' => 'AdController@update']);
 
-    $router->get('ads/comment/{id}', ['uses' => 'AdController@addComment']);
+    $router->post('/comment/{id}', ['uses' => 'AdController@addComment']);
 });

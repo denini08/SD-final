@@ -9,7 +9,7 @@ class Ad extends \Jenssegers\Mongodb\Eloquent\Model
     protected $primaryKey = '_id';
 
     protected $fillable = [
-        'title', 'description', 'contact', 'createdBy'
+        'title', 'description', 'contact', 'price', 'createdBy'
     ];
 
     public function setUpdatedAt($value)

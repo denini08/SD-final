@@ -29,7 +29,7 @@ class Ad extends Migration
     public function down()
     {
         Schema::connection($this->connection)
-        ->table('actions', function (Blueprint $collection)
+        ->table('Ad', function (Blueprint $collection)
         {
             $collection->drop();
         });

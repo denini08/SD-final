@@ -19,9 +19,10 @@ class DatabaseSeeder extends Seeder
             'title' => 'notebook Acer',
             'description' => 'notebook em ótimo estado',
             'contact' => '999-843-797',
-            'CreateBy' => [
+            'price' => '10,00',
+            'createdBy' => [
                 'name' => 'Thomás',
-                'id_Google' => '123456',
+                'id' => '123456',
                 'email' => 't@upe.br',
             ],
         ]);

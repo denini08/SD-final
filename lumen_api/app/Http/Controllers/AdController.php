@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ad;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\MockObject\Stub\Exception;
 
 class AdController extends Controller
 {
@@ -30,7 +31,13 @@ class AdController extends Controller
 
         $ads = $adsTitle->merge($adsDesc);
 
-        return response()->json($ads);
+        return response()->json(['retorno' => $ads, 'strng' => $filter]);
+
+    }
+
+    public function findId($id) {
+
+        return response()->json(Ad::find($id));
 
     }
 
@@ -62,7 +69,7 @@ class AdController extends Controller
     public function delete($id)
     {
         Ad::findOrFail($id)->delete();
-        return response('Deleted Successfully', 200);
+        return response()->json([ 'status' => 'deleted'], 200);
     }
 
     /**
@@ -70,9 +77,11 @@ class AdController extends Controller
      */
     public function addComment($id, Request $request){
 
+        //dd($request->comment);
+
         $anuncio = Ad::findOrFail($id);
 
-        $anuncio->comments()->create($request->all());
+        $anuncio->comments()->create($request->comment);
 
         //$anuncio->save();
 
