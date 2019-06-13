@@ -92,6 +92,18 @@ class AdController {
         });
     });
   }
+
+  buscarMeus(idGoogle) {
+    return new Promise((resolve, reject) => {
+      Ad.find({ "createdBy.id": idGoogle })
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 }
 
 module.exports = AdController;

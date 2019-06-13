@@ -53,7 +53,7 @@ class RoutesApi {
         });
     });
 
-    routes.get("/delete/:id", (req, res) => {
+    routes.delete("/delete/:id", (req, res) => {
       this.AdController.deleteAd(req.params.id)
         .then(succ => {
           res.status(200).json({ status: "deleted" });
@@ -67,6 +67,16 @@ class RoutesApi {
       this.AdController.addComment(req.params.id, req.body.comment)
         .then(succ => {
           res.status(201).json({ succ });
+        })
+        .catch(err => {
+          res.json(err);
+        });
+    });
+
+    routes.get("/meus/:id", (req, res) => {
+      this.AdController.buscarMeus(req.params.id)
+        .then(succ => {
+          res.status(200).json({ succ });
         })
         .catch(err => {
           res.json(err);
