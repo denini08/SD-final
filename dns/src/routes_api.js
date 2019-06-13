@@ -11,7 +11,7 @@ class RoutesApi {
 
   initRoutes() {
     routes.get("/keepAlive", (req, res) => {
-      console.log("ip conectado", req.clientIp);
+      console.log("TA VIVO: ", req.clientIp);
       this.Dns.addServidor(req.clientIp);
       res.status(200).json({ ok: "ok" });
     });
