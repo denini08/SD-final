@@ -23,6 +23,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('find/{filter}', ['uses' => 'AdController@find']);
 
+    $router->get('meus/{id}', ['uses' => 'AdController@findByOwner']);
+
     $router->get('view/{id}', ['uses' => 'AdController@findId']);
 
     $router->post('insert', ['uses' => 'AdController@create']);
