@@ -5,6 +5,7 @@ import { Container, Row } from "reactstrap";
 import Footer from "../footer/Footer";
 import Header from "../header/Header.js";
 import { Redirect } from "react-router-dom";
+import { isLogado, novoLogin } from "../../auth";
 
 export default class Login extends Component {
   state = {
@@ -12,6 +13,12 @@ export default class Login extends Component {
     name: "",
     email: ""
   };
+
+  componentDidMount() {
+    if (isLogado()) {
+      this.props.history.push("/inicial");
+    }
+  }
 
   responseGoogleOk = e => {
     console.log(e);
@@ -22,9 +29,8 @@ export default class Login extends Component {
       email: email
     });
 
-    localStorage.setItem("@UPE:googleId", googleId);
-    localStorage.setItem("@UPE:name", name);
-    localStorage.setItem("@UPE:email", email);
+    novoLogin(googleId, name, email);
+    this.props.history.push("/inicial");
   };
 
   responseGoogleErro = e => {
