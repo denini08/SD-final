@@ -13,7 +13,7 @@ class RoutesApi {
     routes.get("/keepAlive", (req, res) => {
       console.log("TA VIVO: ", req.clientIp);
       this.Dns.addServidor(req.clientIp);
-      res.status(200).json({ ok: "ok" });
+      res.status(201).json({ ok: "ok" });
     });
 
     routes.get("/remove", (req, res) => {
@@ -31,6 +31,22 @@ class RoutesApi {
           console.log("servidor erro", err);
           res.status(500).json(err);
         });
+    });
+
+    routes.get("/getServidorImagem", (req, res) => {
+      this.Dns.getServidorImagem()
+        .then(resp => {
+          res.status(200).json(resp);
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
+    });
+
+    routes.get("/addServidorImagem", (req, res) => {
+      console.log("servidor imagem: ", req.clientIp);
+      this.Dns.setServidorImagem(req.clientIp);
+      res.status(201).json({ ok: "ok" });
     });
   }
 }

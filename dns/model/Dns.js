@@ -1,6 +1,21 @@
 class Dns {
   constructor() {
     this.servidores = [];
+    this.imagem;
+  }
+
+  setServidorImagem(ip) {
+    this.imagem = ip;
+  }
+
+  getServidorImagem() {
+    return new Promise((resolve, reject) => {
+      if (this.imagem) {
+        resolve(this.imagem);
+      } else {
+        reject();
+      }
+    });
   }
 
   addServidor(ip) {
