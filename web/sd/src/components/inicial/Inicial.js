@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import { meus, getServidor } from "../../service/service";
+import { meus, getServidor, excluirAd } from "../../service/service";
 
 export default class Inicial extends Component {
   constructor(props) {
@@ -14,16 +14,24 @@ export default class Inicial extends Component {
   }
 
   componentDidMount() {
-    getServidor().then(resp => {
-      meus(sessionStorage.getItem("@UPE:googleId")).then(resp => {
+    meus(sessionStorage.getItem("@UPE:googleId"))
+      .then(resp => {
         console.log("resppp", resp);
         this.setState({
           isLoaded: true,
           items: resp.succ
         });
+      })
+      .catch(err => {
+        console.log("erro pega servidor", err);
       });
-    });
   }
+
+  excluirAd = id => {
+    //excluirAd(id);
+    alert(id);
+    window.location.reload();
+  };
 
   render() {
     const { error, isLoaded, items } = this.state;
@@ -39,7 +47,17 @@ export default class Inicial extends Component {
           {items.map((item, t) => (
             <div className="container">
               <div className="card">
-                <div className="card-header">{item.title}</div>
+                <div className="card-header">
+                  {item.title}{" "}
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      this.excluirAd(item._id);
+                    }}
+                  >
+                    Excluir
+                  </button>
+                </div>
                 <div className="card-body">
                   <div className="form-group row">
                     <label

@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import "./header.css";
 import logo from "../../static/logo.png";
+import { GoogleLogout } from "react-google-login";
 
 export default class Header extends Component {
+  logout = () => {
+    this.props.history.push("/");
+  };
+
   render() {
     return (
       <header className="cabecalho bg">
@@ -11,15 +16,20 @@ export default class Header extends Component {
         </a>
         <nav className="navbar navbar-expand-lg">
           <li>
-            <a href="/api/index">Home</a>
+            <a href="/inicial">Home</a>
           </li>
           <li>
-            <a href="/api/inserir">Inserir</a>
+            <a href="/inserir">Inserir</a>
           </li>
           <li>
-            <a className="dropdown-item" href="/api/logout">
-              Sair
-            </a>
+            <a href="/listar">Listar todos</a>
+          </li>
+          <li>
+            {/* <GoogleLogout
+              buttonText="Sair"
+              clientId={sessionStorage.getItem("@UPE:googleId")}
+              onLogoutSuccess={this.logout}
+            /> */}
           </li>
         </nav>
       </header>
