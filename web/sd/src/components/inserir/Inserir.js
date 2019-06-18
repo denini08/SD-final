@@ -68,7 +68,6 @@ export default class Inserir extends Component {
                     type="text"
                     className="form-control"
                     required
-                    autoFocus
                     onChange={e => this.setValues(e, "description")}
                   />
                 </div>
@@ -90,7 +89,6 @@ export default class Inserir extends Component {
                     name="phone"
                     placeholder="(81)999-999-999"
                     required
-                    autoFocus
                     onChange={e => this.setValues(e, "contact")}
                   />
                 </div>
@@ -110,7 +108,6 @@ export default class Inserir extends Component {
                     type="number"
                     className="form-control"
                     required
-                    autoFocus
                     onChange={e => this.setValues(e, "price")}
                   />
                 </div>

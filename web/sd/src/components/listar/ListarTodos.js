@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import { meus, getServidor, excluirAd } from "../../service/service";
+import { findAll } from "../../service/service";
+import ListaGenerica from "./ListaGenerica";
 
 export default class Listar extends Component {
   constructor(props) {
@@ -13,6 +14,19 @@ export default class Listar extends Component {
     };
   }
 
+  componentDidMount() {
+    findAll()
+      .then(resp => {
+        this.setState({
+          isLoaded: true,
+          items: resp
+        });
+      })
+      .catch(err => {
+        console.log("erro", err);
+      });
+  }
+
   render() {
     const { error, isLoaded, items } = this.state;
 
@@ -21,7 +35,11 @@ export default class Listar extends Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      return <>OI</>;
+      return (
+        <>
+          <Header /> <ListaGenerica items={this.state.items} /> <Footer />
+        </>
+      );
     }
   }
 }

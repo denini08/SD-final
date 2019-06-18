@@ -1,5 +1,5 @@
 import axios from "axios";
-const dns = "192.168.0.104";
+const dns = "192.168.43.86";
 const dnsHttp = "http://" + dns + ":3030";
 let api;
 
@@ -32,10 +32,13 @@ export const view = id => {
     getServidor().then(resp => {
       api
         .get("view/" + id)
-        .then(function(resp) {
-          console.log(resp);
+        .then(function(respo) {
+          //console.log(resp);
+          resolve(respo.data);
         })
-        .catch(err => {});
+        .catch(err => {
+          reject(err);
+        });
     });
   }).catch(err => {
     console.log("erro ao pegar servidor", err);
@@ -46,6 +49,12 @@ export const insert = Ad => {
   return new Promise((resolve, reject) => {
     getServidor()
       .then(resp => {
+        let createdBy = {
+          name: sessionStorage.getItem("@UPE:name"),
+          id: sessionStorage.getItem("@UPE:googleId"),
+          email: sessionStorage.getItem("@UPE:email")
+        };
+        Ad.createdBy = createdBy;
         api
           .post("insert/", {
             Ad: Ad
@@ -89,7 +98,8 @@ export const insertComment = (id, obj) => {
           comment: obj
         })
         .then(function(resp) {
-          console.log(resp);
+          resolve(resp);
+          //console.log(resp);
         });
     });
   }).catch(err => {
@@ -116,16 +126,19 @@ export const meus = idG => {
   });
 };
 
-export const findAll = idG => {
+export const findAll = () => {
   return new Promise((resolve, reject) => {
     getServidor()
       .then(resp => {
         api
           .get("findAll")
-          .then(function(resp) {
-            console.log(resp);
+          .then(function(respo) {
+            // console.log(resp);
+            resolve(respo.data);
           })
-          .catch(err => {});
+          .catch(err => {
+            reject(err);
+          });
       })
       .catch(err => {
         console.log("erro ao pegar servidor", err);
@@ -140,9 +153,12 @@ export const find = b => {
         api
           .get("find/" + b)
           .then(function(resp) {
+            resolve(resp.data);
             console.log(resp);
           })
-          .catch(err => {});
+          .catch(err => {
+            reject(err);
+          });
       })
       .catch(err => {
         console.log("erro ao pegar servidor", err);

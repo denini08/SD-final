@@ -4,7 +4,6 @@ import "./login.css";
 import { Container, Row } from "reactstrap";
 import Footer from "../footer/Footer";
 import Header from "../header/Header.js";
-import { Redirect } from "react-router-dom";
 import { isLogado, novoLogin } from "../../auth";
 
 export default class Login extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./header.css";
 import logo from "../../static/logo.png";
-import { GoogleLogout } from "react-google-login";
+import Busca from "../busca/Busca";
 
 export default class Header extends Component {
   logout = () => {
@@ -11,9 +11,10 @@ export default class Header extends Component {
   render() {
     return (
       <header className="cabecalho bg">
-        <a href="/api/home">
+        <a href="/inicial">
           <img src={logo} alt="PDf online" />
         </a>
+        <Busca />
         <nav className="navbar navbar-expand-lg">
           <li>
             <a href="/inicial">Home</a>
