@@ -18,9 +18,9 @@ class Dns {
     });
   }
 
-  addServidor(ip) {
+  addServidor(ip, port) {
     let ret = this.servidores.find(serv => {
-      return serv.ip === ip;
+      return serv.ip === ip && serv.port === port;
     });
 
     if (ret !== undefined) {
@@ -28,6 +28,7 @@ class Dns {
     } else {
       this.servidores.push({
         ip: ip,
+        port: port,
         data: new Date()
       });
     }

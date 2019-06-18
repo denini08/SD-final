@@ -30,7 +30,7 @@ app.listen(3002, () => {
 var cron = require("node-cron");
 
 var task = cron.schedule("*/30 * * * * *", () => {
-  request(DNS, function(error, response, body) {
+  request(DNS + "/3002", function(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body); // Print the google web page.
     } else {

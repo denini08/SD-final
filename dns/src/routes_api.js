@@ -9,15 +9,24 @@ class RoutesApi {
     this.Dns = new Dns_();
   }
 
+  mdd(req, res, next) {
+    if (req.clientIp.substr(0, 7) == "::ffff:") {
+      req.clientIpNovo = req.clientIp.substr(7);
+    }
+    next();
+  }
+
   initRoutes() {
-    routes.get("/keepAlive", (req, res) => {
-      console.log("TA VIVO: ", req.clientIp);
-      this.Dns.addServidor(req.clientIp);
-      res.status(201).json({ ok: "ok" });
+    routes.get("/keepAlive/:port", this.mdd, (req, res) => {
+      console.log("TA VIVO: ", req.clientIpNovo);
+      let port = req.params.port;
+      console.log("port", port);
+      this.Dns.addServidor(req.clientIpNovo, port);
+      res.status(200).json({ ok: "ok" });
     });
 
-    routes.get("/remove", (req, res) => {
-      this.Dns.removerServidor(req.clientIp);
+    routes.get("/remove", this.mdd, (req, res) => {
+      this.Dns.removerServidor(req.clientIpNovo);
       res.status(200);
     });
 
@@ -43,9 +52,9 @@ class RoutesApi {
         });
     });
 
-    routes.get("/addServidorImagem", (req, res) => {
-      console.log("servidor imagem: ", req.clientIp);
-      this.Dns.setServidorImagem(req.clientIp);
+    routes.get("/addServidorImagem", this.mdd, (req, res) => {
+      console.log("servidor imagem: ", req.clientIpNovo);
+      this.Dns.setServidorImagem(req.clientIpNovo);
       res.status(201).json({ ok: "ok" });
     });
   }
