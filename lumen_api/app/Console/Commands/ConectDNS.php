@@ -11,7 +11,6 @@ namespace App\Console\Commands;
 
 use \GuzzleHttp\Client;
 use Illuminate\Console\Command;
-use App\Http\Controllers\AuthorController;
 
 /**
  * Class deletePostsCommand

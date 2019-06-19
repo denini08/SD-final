@@ -91,7 +91,8 @@ class AdController extends Controller
 
     public function findByOwner ($id) {
 
-        return response()->json(Ad::where('createdBy.id', '=', $id)->get());
+        $anuncios = Ad::where('createdBy.id', '=', $id)->get();
+        return response()->json(['succ' => $anuncios]);
 
     }
 }
