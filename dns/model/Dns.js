@@ -18,6 +18,14 @@ class Dns {
         data: new Date()
       });
     }
+    console.log(
+      "\nservidores conectados: ",
+      "[",
+      this.servidores.length,
+      "]",
+      this.servidores,
+      "\n\n\n"
+    );
   }
 
   removerServidor(ip) {
@@ -33,17 +41,35 @@ class Dns {
     return new Promise((resolve, reject) => {
       //calculando para ver se algum servidor morreu
       for (let i = 0; i < this.servidores.length; i++) {
-        let diff = Math.abs(new Date() - this.servidores.data);
+        let diff = Math.abs(new Date() - this.servidores[i].data);
         let minutos = diff / 1000 / 60; //ms segundos
 
-        if (minutos > 1) {
-          servidores.splice(i, 1);
+        console.log("diferenca", minutos);
+        if (minutos > 0.5) {
+          this.servidores.splice(i, 1);
           i--;
+          console.log(
+            "******////////ATENCAOOO API MORREU:",
+            this.servidores[i]
+          );
         }
       }
 
+      if (this.servidores.length === 0) {
+        reject("nenhum servidor conectado");
+      }
+
       let serivorEscolhido = this.servidores.shift();
+      console.log("servidor escolhido: ", serivorEscolhido, "\n\n");
       this.servidores.push(serivorEscolhido);
+      console.log(
+        "servidores conectados: [",
+        this.servidores.length,
+        "]",
+        this.servidores,
+        "\n\n"
+      );
+
       let obj = {
         ipServidor: serivorEscolhido
       };

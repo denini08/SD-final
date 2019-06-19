@@ -76,9 +76,11 @@ class RoutesApi {
     routes.get("/meus/:id", (req, res) => {
       this.AdController.buscarMeus(req.params.id)
         .then(succ => {
+          console.log("resp1", succ);
           res.status(200).json({ succ });
         })
         .catch(err => {
+          console.log("EROOWW", err);
           res.json(err);
         });
     });

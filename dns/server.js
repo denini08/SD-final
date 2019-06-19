@@ -7,7 +7,7 @@ const path = require("path");
 const requestIp = require("request-ip");
 const app = express();
 
-app.use(logger("dev"));
+//app.use(logger("dev"));
 app.use(express.static(path.join(__dirname, "img")));
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,5 +21,5 @@ const api = require("./src/routes_api");
 app.use("/", new api().routes);
 
 app.listen(3030, () => {
-  console.log("DNS started on: " + ip.address() + " port: 3030");
+  console.log("DNS started on: " + ip.address() + " port: 3030\n");
 });

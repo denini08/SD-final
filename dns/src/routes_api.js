@@ -33,11 +33,10 @@ class RoutesApi {
     routes.get("/getServidor", (req, res) => {
       this.Dns.getServidor()
         .then(resp => {
-          console.log("servidor escolhido", resp);
           res.status(200).json(resp);
         })
         .catch(err => {
-          console.log("servidor erro", err);
+          console.log("Nunhuma api para mandar", err);
           res.status(500).json(err);
         });
     });

@@ -1,5 +1,5 @@
 import axios from "axios";
-const dns = "192.168.0.101";
+const dns = "192.168.43.86";
 const dnsHttp = "http://" + dns + ":3030";
 let api;
 
@@ -22,7 +22,8 @@ export const getServidor = () => {
       })
       .catch(function(error) {
         console.log(error);
-        getServidor();
+        reject(error);
+        window.location.reload();
       });
   });
 };
@@ -55,6 +56,7 @@ export const insert = Ad => {
           email: sessionStorage.getItem("@UPE:email")
         };
         Ad.createdBy = createdBy;
+        console.log("obj", { Ad: Ad });
         api
           .post("insert/", {
             Ad: Ad

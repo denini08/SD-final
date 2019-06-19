@@ -8,7 +8,7 @@ const ip = require("ip");
 const request = require("request");
 
 const DNS = "http://localhost:3030/keepAlive";
-mongoose.connect("mongodb://localhost:27017/api", {
+mongoose.connect("mongodb://localhost:27017/ads", {
   useNewUrlParser: true
 });
 
