@@ -4,20 +4,6 @@ class Dns {
     this.imagem;
   }
 
-  setServidorImagem(ip) {
-    this.imagem = ip;
-  }
-
-  getServidorImagem() {
-    return new Promise((resolve, reject) => {
-      if (this.imagem) {
-        resolve(this.imagem);
-      } else {
-        reject();
-      }
-    });
-  }
-
   addServidor(ip, port) {
     let ret = this.servidores.find(serv => {
       return serv.ip === ip && serv.port === port;
@@ -45,7 +31,7 @@ class Dns {
 
   getServidor() {
     return new Promise((resolve, reject) => {
-      //calculando para ver se morreu
+      //calculando para ver se algum servidor morreu
       for (let i = 0; i < this.servidores.length; i++) {
         let diff = Math.abs(new Date() - this.servidores.data);
         let minutos = diff / 1000 / 60; //ms segundos
@@ -56,9 +42,10 @@ class Dns {
         }
       }
 
+      let serivorEscolhido = this.servidores.shift();
+      this.servidores.push(serivorEscolhido);
       let obj = {
-        ipServidor: this.servidores[0],
-        ipImagens: this.servidores[1]
+        ipServidor: serivorEscolhido
       };
       resolve(obj);
     });

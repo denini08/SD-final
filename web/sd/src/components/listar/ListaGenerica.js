@@ -36,7 +36,7 @@ export default class ListarGenerica extends Component {
                       <tbody>
                         {items.map((item, t) => (
                           <tr>
-                            <td>{t}</td>
+                            <td>{t + 1}</td>
                             <td>{item.title}</td>
                             <td>{item.price}</td>
                             <td>

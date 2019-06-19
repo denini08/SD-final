@@ -41,22 +41,6 @@ class RoutesApi {
           res.status(500).json(err);
         });
     });
-
-    routes.get("/getServidorImagem", (req, res) => {
-      this.Dns.getServidorImagem()
-        .then(resp => {
-          res.status(200).json(resp);
-        })
-        .catch(err => {
-          res.status(500).json(err);
-        });
-    });
-
-    routes.get("/addServidorImagem", this.mdd, (req, res) => {
-      console.log("servidor imagem: ", req.clientIpNovo);
-      this.Dns.setServidorImagem(req.clientIpNovo);
-      res.status(201).json({ ok: "ok" });
-    });
   }
 }
 

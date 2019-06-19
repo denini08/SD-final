@@ -23,6 +23,7 @@ export default class Busca extends Component {
       <>
         <input placeholder="Buscar" onChange={e => this.setValues(e, "b")} />
         <button
+          className="btn btn-outline-danger"
           onClick={() => {
             this.buscar();
           }}

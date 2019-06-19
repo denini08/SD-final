@@ -14,7 +14,10 @@ export default class Header extends Component {
         <a href="/inicial">
           <img src={logo} alt="PDf online" />
         </a>
-        <Busca />
+        <div>
+          <Busca />
+        </div>
+
         <nav className="navbar navbar-expand-lg">
           <li>
             <a href="/inicial">Home</a>

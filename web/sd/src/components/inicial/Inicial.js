@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
-import { meus, getServidor, excluirAd } from "../../service/service";
+import { meus, deletar } from "../../service/service";
 
 export default class Inicial extends Component {
   constructor(props) {
@@ -28,9 +28,13 @@ export default class Inicial extends Component {
   }
 
   excluirAd = id => {
-    //excluirAd(id);
-    alert(id);
-    window.location.reload();
+    if (window.confirm("Tem certeza que deseja excluir?")) {
+      deletar(id)
+        .then(resp => {
+          window.location.reload();
+        })
+        .catch(err => {});
+    }
   };
 
   render() {
@@ -64,7 +68,7 @@ export default class Inicial extends Component {
                       className="col-md-4 col-form-label text-md-right"
                       htmlFor={"1_" + t}
                     >
-                      Descricao
+                      Description
                     </label>
                     <div className="col-md-6">
                       <input

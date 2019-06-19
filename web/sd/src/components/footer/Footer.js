@@ -7,7 +7,9 @@ export default class Footer extends Component {
       <footer className="page-footer font-small blue pt-4">
         <div className="footer-copyright text-center py-3">
           © 2019 Copyright:
-          <a href="https://upecaruaru.com.br"> UPE Caruaru </a>
+          <a href="https://upecaruaru.com.br" target="_blanck">
+            UPE Caruaru
+          </a>
         </div>
       </footer>
     );

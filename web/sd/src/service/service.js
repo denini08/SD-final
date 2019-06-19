@@ -1,5 +1,5 @@
 import axios from "axios";
-const dns = "192.168.43.86";
+const dns = "192.168.0.101";
 const dnsHttp = "http://" + dns + ":3030";
 let api;
 
@@ -80,7 +80,8 @@ export const deletar = id => {
         api
           .delete("delete/" + id)
           .then(function(resp) {
-            console.log(resp);
+            resolve(resp);
+            //console.log(resp);
           })
           .catch(err => {});
       })

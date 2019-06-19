@@ -121,7 +121,7 @@ export default class View extends Component {
                       {item.comments.map((cmmt, cont) => (
                         <div className="form-group row">
                           <label className="col-md-4 col-form-label text-md-right">
-                            {cmmt.autor}
+                            {cmmt.autor + " :"}
                           </label>
                           <div className="col-md-6">
                             <input

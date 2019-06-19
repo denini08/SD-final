@@ -24,17 +24,21 @@ const api = require("./src/routes_api");
 app.use("/api", new api().routes);
 
 app.listen(3002, () => {
-  console.log("Server started on: " + ip.address() + " port: 3002");
+  console.log("API started on: " + ip.address() + " port: 3002");
 });
 
 var cron = require("node-cron");
 
-var task = cron.schedule("*/30 * * * * *", () => {
+function requisicaoDns() {
   request(DNS + "/3002", function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body); // Print the google web page.
+      console.log(body);
     } else {
       console.log("erro", error);
     }
   });
-});
+}
+
+requisicaoDns();
+
+var task = cron.schedule("*/30 * * * * *", requisicaoDns);

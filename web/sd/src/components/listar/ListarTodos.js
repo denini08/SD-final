@@ -37,7 +37,7 @@ export default class Listar extends Component {
     } else {
       return (
         <>
-          <Header /> <ListaGenerica items={this.state.items} /> <Footer />
+          <Header /> <ListaGenerica items={items} /> <Footer />
         </>
       );
     }
