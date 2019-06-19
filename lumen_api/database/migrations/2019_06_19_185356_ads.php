@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Ad extends Migration
+class Ads extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class Ad extends Migration
     public function up()
     {
         Schema::connection($this->connection)
-        ->table('Ad', function (Blueprint $collection)
+        ->table('ads', function (Blueprint $collection)
         {
 
 
@@ -29,7 +29,7 @@ class Ad extends Migration
     public function down()
     {
         Schema::connection($this->connection)
-        ->table('Ad', function (Blueprint $collection)
+        ->table('ads', function (Blueprint $collection)
         {
             $collection->drop();
         });

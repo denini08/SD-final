@@ -5,7 +5,7 @@ namespace App;
 class Ad extends \Jenssegers\Mongodb\Eloquent\Model
 {
 
-    protected $collection = 'Ad';
+    protected $collection = 'ads';
     protected $primaryKey = '_id';
 
     protected $fillable = [

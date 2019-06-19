@@ -47,7 +47,11 @@ class AdController extends Controller
     public function create(Request $request)
     {
 
-        $anuncio = Ad::create($request->all());
+        $anuncio = Ad::create($request->Ad);
+
+        $anuncio->comments = [];
+
+        $anuncio->save();
 
         return response()->json($anuncio, 201);
     }

@@ -43,6 +43,7 @@ class ConectDNS extends Command
     public function handle()
     {
         $address = env('DNS_ADDRESS', 'localhost:8000');
+        echo $address;
         $client = new Client();
         $request = $client->get($address);
         $response = $request->getBody()->getContents();

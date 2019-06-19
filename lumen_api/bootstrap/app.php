@@ -22,8 +22,10 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
+$app->register(Barryvdh\Cors\ServiceProvider::class);
 
 $app->configure('database');
+$app->configure('cors');
 
 $app->withFacades();
 
@@ -64,6 +66,10 @@ $app->singleton(
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
+$app->middleware([
+    // ...
+    \Barryvdh\Cors\HandleCors::class,
+]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
