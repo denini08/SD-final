@@ -99,4 +99,10 @@ class AdController extends Controller
         return response()->json(['succ' => $anuncios]);
 
     }
+
+    public function isAlive() {
+
+        return response()->json();
+
+    }
 }
