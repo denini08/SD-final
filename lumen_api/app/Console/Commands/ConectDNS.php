@@ -46,8 +46,6 @@ class ConectDNS extends Command
         $port = env('PORT', 8001);
         $nick = env('NICK', 'thomas');
         $url = $address . '/' . $port . '/' . $nick;
-        echo "$url\n";
-        return;
         $client = new Client();
         $request = $client->get($address);
         $response = $request->getBody()->getContents();

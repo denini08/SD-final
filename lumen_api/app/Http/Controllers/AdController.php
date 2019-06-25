@@ -102,7 +102,7 @@ class AdController extends Controller
 
     public function isAlive() {
 
-        return response()->json();
+        return response()->json(['status' => 'ok']);
 
     }
 }
