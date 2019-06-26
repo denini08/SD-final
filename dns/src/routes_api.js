@@ -1,6 +1,7 @@
 const express = require("express");
 const routes = express.Router();
 const Dns_ = require("../model/Dns");
+var request = require("request");
 
 class RoutesApi {
   constructor() {
@@ -17,11 +18,11 @@ class RoutesApi {
   }
 
   initRoutes() {
-    routes.get("/keepAlive/:port", this.mdd, (req, res) => {
-      console.log("TA VIVO: ", req.clientIpNovo);
+    routes.get("/keepAlive/:port/:nome", this.mdd, (req, res) => {
       let port = req.params.port;
-      console.log("port", port);
-      this.Dns.addServidor(req.clientIpNovo, port);
+      let nome = req.params.nome;
+      console.log("TA VIVO: ", nome);
+      this.Dns.addServidor(req.clientIpNovo, port, nome);
       res.status(200).json({ ok: "ok" });
     });
 

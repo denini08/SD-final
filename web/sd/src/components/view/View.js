@@ -3,6 +3,7 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { view } from "../../service/service";
 import InserirComentario from "../inserirComentario/InserirComentario";
+import Erros from "../erros/Erros";
 
 export default class View extends Component {
   constructor(props) {
@@ -17,20 +18,33 @@ export default class View extends Component {
   componentDidMount() {
     view(this.props.match.params.id)
       .then(resp => {
-        this.setState({
-          isLoaded: true,
-          item: resp
-        });
+        console.log("1", resp);
+        if (resp.respo.status == 404) {
+          alert("entrouss");
+          this.setState({
+            error: "404",
+            isNotFound: true
+          });
+        } else {
+          this.setState({
+            isLoaded: true,
+            item: resp.respo
+          });
+        }
       })
       .catch(err => {
         console.log("err", err);
+        this.setState({
+          error: err,
+          isLoaded: true
+        });
       });
   }
   render() {
-    const { error, isLoaded, item } = this.state;
+    const { error, isLoaded, item, isNotFound } = this.state;
 
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <Erros mensage={error.message} isNotFound={isNotFound} />;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {

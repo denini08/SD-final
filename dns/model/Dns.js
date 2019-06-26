@@ -1,10 +1,13 @@
+const request = require("request-promise");
+
 class Dns {
   constructor() {
     this.servidores = [];
     this.imagem;
   }
 
-  addServidor(ip, port) {
+  addServidor(ip, port, nome) {
+    console.log("nome", nome);
     let ret = this.servidores.find(serv => {
       return serv.ip === ip && serv.port === port;
     });
@@ -15,26 +18,53 @@ class Dns {
       this.servidores.push({
         ip: ip,
         port: port,
-        data: new Date()
+        data: new Date(),
+        nome: nome
       });
     }
-    console.log(
-      "\nservidores conectados: ",
-      "[",
-      this.servidores.length,
-      "]",
-      this.servidores,
-      "\n\n\n"
-    );
+    this.printServiroes();
   }
 
   removerServidor(ip) {
     for (let i = 0; i < this.servidores.length; i++) {
       if (servidores[i].ip === ip) {
+        console.log(
+          "******////////ATENCAOOO API MORREU:",
+          this.servidores[i].nome
+        );
         servidores.splice(i, 1);
         return;
       }
     }
+  }
+
+  isAlive() {
+    return new Promise((resolve, reject) => {
+      if (this.servidores.length === 0) resolve("nada");
+      let serivorEscolhido = this.servidores.shift();
+      console.log("servidor escolhido: ", serivorEscolhido, "\n");
+      let s =
+        "http://" +
+        serivorEscolhido.ip +
+        ":" +
+        serivorEscolhido.port +
+        "/api/isAlive";
+      request({ uri: s, json: true })
+        .then(resposta => {
+          console.log("res", resposta, typeof resposta);
+          if (resposta.status == "ok") {
+            console.log("Servidor está vivo e foi enviado ");
+            console.log("----------------------------");
+            resolve(serivorEscolhido);
+          } else {
+            resolve(this.isAlive());
+          }
+        })
+        .catch(err => {
+          console.log("AAAAAA Servidor está morto");
+          resolve(this.isAlive());
+        });
+    });
   }
 
   getServidor() {
@@ -46,35 +76,56 @@ class Dns {
 
         console.log("diferenca", minutos);
         if (minutos > 0.5) {
+          console.log(
+            "\x1b[31m",
+            "******////////ATENCAOOO API MORREU:",
+            this.servidores[i].nome
+          );
           this.servidores.splice(i, 1);
           i--;
-          console.log(
-            "******////////ATENCAOOO API MORREU:",
-            this.servidores[i]
-          );
         }
       }
 
       if (this.servidores.length === 0) {
-        reject("nenhum servidor conectado");
+        reject("Nenhuma api conectada");
       }
 
-      let serivorEscolhido = this.servidores.shift();
-      console.log("servidor escolhido: ", serivorEscolhido, "\n\n");
-      this.servidores.push(serivorEscolhido);
-      console.log(
-        "servidores conectados: [",
-        this.servidores.length,
-        "]",
-        this.servidores,
-        "\n\n"
-      );
-
-      let obj = {
-        ipServidor: serivorEscolhido
-      };
-      resolve(obj);
+      this.isAlive()
+        .then(res => {
+          if (typeof res === "string") {
+            reject(res);
+          }
+          let obj = {
+            ipServidor: res
+          };
+          res.data = new Date();
+          this.servidores.push(res);
+          this.printServiroes();
+          resolve(obj);
+        })
+        .catch(err => {
+          reject(err);
+        });
     });
+  }
+
+  printServiroes() {
+    let nomes = [];
+
+    this.servidores.forEach(servidor => {
+      nomes.push(servidor.nome);
+    });
+
+    console.log(
+      "\x1b[36m",
+      "------------",
+      "servidores conectados: ",
+      "[",
+      nomes.length,
+      "]",
+      nomes,
+      "------------"
+    );
   }
 }
 

@@ -23,14 +23,14 @@ const api = require("./src/routes_api");
 
 app.use("/api", new api().routes);
 
-app.listen(3002, () => {
-  console.log("API started on: " + ip.address() + " port: 3002");
+app.listen(3009, () => {
+  console.log("API started on: " + ip.address() + " port: 3009");
 });
 
 var cron = require("node-cron");
 
 function requisicaoDns() {
-  request(DNS + "/3002", function(error, response, body) {
+  request(DNS + "/3009/outro", function(error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
     } else {

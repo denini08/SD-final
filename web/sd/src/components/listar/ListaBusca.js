@@ -3,6 +3,7 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { find } from "../../service/service";
 import ListaGenerica from "./ListaGenerica";
+import Erros from "../erros/Erros";
 
 export default class ListaBuca extends Component {
   constructor(props) {
@@ -25,6 +26,11 @@ export default class ListaBuca extends Component {
       })
       .catch(err => {
         console.log("erro", err);
+        this.setState({
+          isLoaded: false,
+          items: false,
+          error: err
+        });
       });
   }
 
@@ -32,7 +38,7 @@ export default class ListaBuca extends Component {
     const { error, isLoaded, items } = this.state;
 
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <Erros mensage={error.message} />;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {

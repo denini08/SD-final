@@ -17,14 +17,14 @@ export default class ListarGenerica extends Component {
     } else {
       return (
         <>
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-md-8">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-md-8">
                 <br />
-                <div class="card">
-                  <div class="card-header"> Anuncios </div>
-                  <div class="card-body table-responsive ">
-                    <table class="table table-striped text-center">
+                <div className="card">
+                  <div className="card-header"> Anuncios </div>
+                  <div className="card-body table-responsive ">
+                    <table className="table table-striped text-center">
                       <thead>
                         <tr>
                           <th>ID</th>

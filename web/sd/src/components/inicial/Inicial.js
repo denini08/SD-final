@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { meus, deletar } from "../../service/service";
+import Erros from "../erros/Erros";
+import { Link } from "react-router-dom";
 
 export default class Inicial extends Component {
   constructor(props) {
@@ -24,6 +26,11 @@ export default class Inicial extends Component {
       })
       .catch(err => {
         console.log("erro pega servidor", err);
+        this.setState({
+          isLoaded: false,
+          items: false,
+          error: err
+        });
       });
   }
 
@@ -33,14 +40,20 @@ export default class Inicial extends Component {
         .then(resp => {
           window.location.reload();
         })
-        .catch(err => {});
+        .catch(err => {
+          this.setState({
+            isLoaded: false,
+            items: false,
+            error: err
+          });
+        });
     }
   };
 
   render() {
     const { error, isLoaded, items } = this.state;
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <Erros mensage={error.message} />;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
@@ -61,6 +74,10 @@ export default class Inicial extends Component {
                   >
                     Excluir
                   </button>
+                  <Link className="btn btn-info" to={"/view/" + item._id}>
+                    {" "}
+                    Visualizar{" "}
+                  </Link>
                 </div>
                 <div className="card-body">
                   <div className="form-group row">
