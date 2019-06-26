@@ -37,7 +37,13 @@ class AdController extends Controller
 
     public function findId($id) {
 
-        return response()->json(Ad::find($id));
+        $ad = Ad::find($id);
+        if ( empty($ad) ) {
+            return response()->json(null, 404);
+        }else {
+            return response()->json($ad);
+        }
+
 
     }
 

@@ -31,8 +31,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->delete('delete/{id}', ['uses' => 'AdController@delete']);
 
-    $router->put('ads/{id}', ['uses' => 'AdController@update']);
-
     $router->post('/comment/{id}', ['uses' => 'AdController@addComment']);
 
     $router->get('/isAlive', ['uses' => 'AdController@isAlive']);
